@@ -1,6 +1,10 @@
 require 'sinatra'
 require 'sinatra/activerecord'
 require 'sinatra/reloader'
+require 'dotenv'
+
+Dotenv.load
+api_key = ENV['MAPBOX_API_ACCESS_TOKEN']
 
 configure :development, :test do
   require 'pry'
@@ -15,7 +19,7 @@ Dir[File.join(File.dirname(__FILE__), 'app', '**', '*.rb')].each do |file|
   also_reload file
 end
 
-get '/' do
-  @title = "Hello World"
-  erb :index
+get '/map_test' do
+  @api_key = api_key
+  erb :map_test
 end
